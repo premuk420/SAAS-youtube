@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Video {
+  id                 String    @id @default(cuid())
+  title              String
+  topic              String
+  status             String    @default("NÁPAD")
+  isShort            Boolean   @default(false)
+  scriptDone         Boolean   @default(false)
+  audioDone          Boolean   @default(false)
+  editDone           Boolean   @default(false)
+  scriptContent      String?
+  thumbnailIdea      String?
+  descriptionContent String?
+  youtubeUrl         String?
+  publishedAt        DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+}
+
+model Settings {
+  id          String @id @default("singleton")
+  weeklyGoal  Int    @default(5)
+  channelName String @default("Můj Kanál")
+  openaiKey   String @default("")
+}
